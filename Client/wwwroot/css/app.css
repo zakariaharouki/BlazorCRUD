@@ -62,3 +62,12 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.regwindow {
+    background-color: #fefefe;
+    border-radius: 8px;
+}
+
+.registrationrow {
+    text-align: center
+}
