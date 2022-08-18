@@ -5,13 +5,11 @@
 @attribute [Authorize]
 @inject HttpClient Http
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Users List</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>List Of Users</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
+@if (Users == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -20,20 +18,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email Confirmed</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var user in Users)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.EmailConfirmed</td>
                 </tr>
             }
         </tbody>
@@ -41,13 +37,13 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private ApplicationUser[]? Users;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            Users = await Http.GetFromJsonAsync<ApplicationUser[]>("UserController");
         }
         catch (AccessTokenNotAvailableException exception)
         {
